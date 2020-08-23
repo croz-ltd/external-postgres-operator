@@ -1,0 +1,88 @@
+
+---
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: MutatingWebhookConfiguration
+metadata:
+  creationTimestamp: null
+  name: mutating-webhook-configuration
+webhooks:
+- clientConfig:
+    caBundle: Cg==
+    service:
+      name: webhook-service
+      namespace: system
+      path: /mutate-database-croz-net-v1alpha1-postgresdatabase
+  failurePolicy: Fail
+  name: mpostgresdatabase.kb.io
+  rules:
+  - apiGroups:
+    - database.croz.net
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - postgresdatabases
+- clientConfig:
+    caBundle: Cg==
+    service:
+      name: webhook-service
+      namespace: system
+      path: /mutate-database-croz-net-v1alpha1-postgresrole
+  failurePolicy: Fail
+  name: mpostgresrole.kb.io
+  rules:
+  - apiGroups:
+    - database.croz.net
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - postgresroles
+
+---
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingWebhookConfiguration
+metadata:
+  creationTimestamp: null
+  name: validating-webhook-configuration
+webhooks:
+- clientConfig:
+    caBundle: Cg==
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-database-croz-net-v1alpha1-postgresdatabase
+  failurePolicy: Fail
+  name: vpostgresdatabase.kb.io
+  rules:
+  - apiGroups:
+    - database.croz.net
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - postgresdatabases
+- clientConfig:
+    caBundle: Cg==
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-database-croz-net-v1alpha1-postgresrole
+  failurePolicy: Fail
+  name: vpostgresrole.kb.io
+  rules:
+  - apiGroups:
+    - database.croz.net
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - postgresroles

@@ -2,6 +2,13 @@ domain: croz.net
 layout: go.kubebuilder.io/v2
 projectName: external-postgres-operator
 repo: github.com/croz-ltd/external-postgres-operator
+resources:
+- group: database
+  kind: PostgresDatabase
+  version: v1alpha1
+- group: database
+  kind: PostgresRole
+  version: v1alpha1
 version: 3-alpha
 plugins:
   go.sdk.operatorframework.io/v2-alpha: {}

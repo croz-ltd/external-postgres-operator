@@ -1,0 +1,55 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[]'
+    capabilities: Basic Install
+    operators.operatorframework.io/builder: operator-sdk-v1.0.0
+    operators.operatorframework.io/project_layout: go.kubebuilder.io/v2
+  name: external-postgres-operator.vX.Y.Z
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - description: PostgresDatabase is the Schema for the postgresdatabases API
+      displayName: Postgres Database
+      kind: PostgresDatabase
+      name: postgresdatabases.database.croz.net
+      version: v1alpha1
+    - description: PostgresRole is the Schema for the postgresroles API
+      displayName: Postgres Role
+      kind: PostgresRole
+      name: postgresroles.database.croz.net
+      version: v1alpha1
+  description: Kubernetes Operator for managing external PostgreSQL server
+  displayName: External Postgres Operator
+  icon:
+  - base64data: ""
+    mediatype: ""
+  install:
+    spec:
+      deployments: null
+    strategy: ""
+  installModes:
+  - supported: true
+    type: OwnNamespace
+  - supported: true
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - postgres
+  links:
+  - name: External Postgres Operator
+    url: https://external-postgres-operator.domain
+  maintainers:
+  - email: mjovanovic@croz.net
+    name: Milan Jovanovic
+  maturity: alpha
+  provider:
+    name: CROZ
+    url: www.croz.net
+  version: 0.0.0

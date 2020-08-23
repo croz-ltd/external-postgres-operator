@@ -1,0 +1,7 @@
+apiVersion: database.croz.net/v1alpha1
+kind: PostgresRole
+metadata:
+  name: postgresrole-sample
+spec:
+  # Add fields here
+  foo: bar
