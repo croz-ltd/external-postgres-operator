@@ -1,11 +1,11 @@
 apiVersion: database.croz.net/v1alpha1
 kind: PostgresDatabase
 metadata:
-  name: example
+  name: sample-full
 spec:
-  name: example2
-  ## rest is optional configuration
+  name: sample_full
   owner: example-owner
+  ## rest is optional configuration
   comment: "example comment"
   definition:
     encoding: "UTF-8"
@@ -25,7 +25,7 @@ spec:
       value: "test-parameter-value"
       role: "test-owner"
   schemas:
-    - name: "another-schem"
+    - name: "another-schema"
       ## rest is optional configuration
       owner: example-owner
       comment: "example schema comment"

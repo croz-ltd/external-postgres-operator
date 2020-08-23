@@ -1,0 +1,10 @@
+apiVersion: database.croz.net/v1alpha1
+kind: PostgresRole
+metadata:
+  name: sample-minimal
+spec:
+  name: sample_minimal
+  password: very-secured
+  connectionLimit: -1
+  privileges:
+    login: true

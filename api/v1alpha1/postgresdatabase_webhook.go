@@ -17,7 +17,9 @@ limitations under the License.
 package v1alpha1
 
 import (
+	"errors"
 	"k8s.io/apimachinery/pkg/runtime"
+	"regexp"
 	ctrl "sigs.k8s.io/controller-runtime"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
@@ -42,7 +44,13 @@ var _ webhook.Defaulter = &PostgresDatabase{}
 func (r *PostgresDatabase) Default() {
 	postgresdatabaselog.Info("default", "name", r.Name)
 
-	// TODO(user): fill in your defaulting logic.
+	if r.Spec.Definition.Encoding == "" {
+		r.Spec.Definition.Encoding = UTF8
+	}
+
+	//if r.Spec.Definition.ConnectionLimit == nil {
+	//	r.Spec.Definition.ConnectionLimit = -1
+	//}
 }
 
 // TODO(user): change verbs to "verbs=create;update;delete" if you want to enable deletion validation.
@@ -50,11 +58,16 @@ func (r *PostgresDatabase) Default() {
 
 var _ webhook.Validator = &PostgresDatabase{}
 
+var identifiersRegex = regexp.MustCompile(`^[a-zA-Z_][a-zA-Z0-9_]*$`)
+
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type
 func (r *PostgresDatabase) ValidateCreate() error {
 	postgresdatabaselog.Info("validate create", "name", r.Name)
 
-	// TODO(user): fill in your validation logic upon object creation.
+	if !identifiersRegex.MatchString(r.Spec.Name) {
+		return errors.New("Requested database name does not compile by Postgres SQL indetifiers pattern. Required pattern: ^[a-zA-Z_][a-zA-Z0-9_]*$")
+	}
+
 	return nil
 }
 

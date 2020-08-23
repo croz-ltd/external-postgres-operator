@@ -85,6 +85,7 @@ spec:
                               items:
                                 type: string
                               type: array
+                              x-kubernetes-list-type: set
                             type:
                               type: string
                             withGrantOption:
@@ -102,6 +103,7 @@ spec:
                               items:
                                 type: string
                               type: array
+                              x-kubernetes-list-type: set
                             type:
                               type: string
                             withGrantOption:
@@ -119,6 +121,7 @@ spec:
                               items:
                                 type: string
                               type: array
+                              x-kubernetes-list-type: set
                             type:
                               type: string
                             withGrantOption:
@@ -136,6 +139,7 @@ spec:
                               items:
                                 type: string
                               type: array
+                              x-kubernetes-list-type: set
                             type:
                               type: string
                             withGrantOption:
@@ -160,6 +164,7 @@ spec:
                               items:
                                 type: string
                               type: array
+                              x-kubernetes-list-type: set
                             type:
                               type: string
                             withGrantOption:
@@ -196,6 +201,7 @@ spec:
                         items:
                           type: string
                         type: array
+                        x-kubernetes-list-type: set
                       type:
                         type: string
                       withGrantOption:
@@ -221,6 +227,7 @@ spec:
               type: object
           required:
           - name
+          - owner
           type: object
         status:
           description: PostgresDatabaseStatus defines the observed state of PostgresDatabase

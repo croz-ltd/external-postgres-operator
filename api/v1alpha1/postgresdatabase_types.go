@@ -19,24 +19,33 @@ import (
 )
 
 type PostgresDatabaseSpec struct {
-	Name    string `json:"name"`
-	Owner   string `json:"owner,omitempty"`
+	Name  string `json:"name"`
+	Owner string `json:"owner"`
+	// +optional
 	Comment string `json:"comment,omitempty"`
-
-	Definition PostgresDatabaseSpecDefinition  `json:"definition,omitempty"`
-	Security   PostgresDatabaseSpecSecurity    `json:"security,omitempty"`
+	// +optional
+	Definition PostgresDatabaseSpecDefinition `json:"definition,omitempty"`
+	// +optional
+	Security PostgresDatabaseSpecSecurity `json:"security,omitempty"`
+	// +optional
 	Parameters []PostgresDatabaseSpecParameter `json:"parameters,omitempty"`
-
+	// +optional
 	Schemas []PostgresDatabaseSpecSchema `json:"schemas,omitempty"`
 }
 
 type PostgresDatabaseSpecDefinition struct {
-	Encoding        Encoding      `json:"encoding,omitempty"`
-	Template        string        `json:"template,omitempty"`
-	Tablespace      string        `json:"tablespace,omitempty"`
-	Collation       Collation     `json:"collation,omitempty"`
-	CharacterType   CharacterType `json:"characterType,omitempty"`
-	ConnectionLimit int           `json:"connectionLimit,omitempty"`
+	// +optional
+	Encoding Encoding `json:"encoding,omitempty"`
+	// +optional
+	Template string `json:"template,omitempty"`
+	// +optional
+	Tablespace string `json:"tablespace,omitempty"`
+	// +optional
+	Collation Collation `json:"collation,omitempty"`
+	// +optional
+	CharacterType CharacterType `json:"characterType,omitempty"`
+	// +optional
+	ConnectionLimit int `json:"connectionLimit,omitempty"`
 }
 
 type Encoding string
@@ -103,14 +112,17 @@ const (
 )
 
 type PostgresDatabaseSpecSecurity struct {
-	Privileges     []PostgresDatabaseSpecSecurityPrivileges `json:"privileges,omitempty"`
-	SecurityLabels []PostgresDatabaseSpecSecurityLabels     `json:"securityLabels,omitempty"`
+	// +optional
+	Privileges []PostgresDatabaseSpecSecurityPrivileges `json:"privileges,omitempty"`
+	// +optional
+	SecurityLabels []PostgresDatabaseSpecSecurityLabels `json:"securityLabels,omitempty"`
 }
 
 type PostgresDatabaseSpecSecurityPrivileges struct {
 	Type            DatabaseGrantType `json:"type"`
 	WithGrantOption bool              `json:"withGrantOption"`
-	Grantees        []string          `json:"grantees"`
+	// +listType=set
+	Grantees []string `json:"grantees"`
 }
 
 type DatabaseGrantType string
@@ -350,53 +362,67 @@ const (
 )
 
 type PostgresDatabaseSpecSchema struct {
-	Name              string                                      `json:"name"`
-	Owner             string                                      `json:"owner,omitempty"`
-	Comment           string                                      `json:"comment,omitempty"`
-	Security          PostgresDatabaseSpecSchemaSecurity          `json:"security,omitempty"`
+	Name  string `json:"name"`
+	Owner string `json:"owner,omitempty"`
+	// +optional
+	Comment string `json:"comment,omitempty"`
+	// +optional
+	Security PostgresDatabaseSpecSchemaSecurity `json:"security,omitempty"`
+	// +optional
 	DefaultPrivileges PostgresDatabaseSpecSchemaDefaultPrivileges `json:"defaultPrivileges,omitempty"`
 }
 
 type PostgresDatabaseSpecSchemaSecurity struct {
-	Privileges     []PostgresDatabaseSpecSchemaSecurityPrivileges `json:"privileges,omitempty"`
-	SecurityLabels []PostgresDatabaseSpecSecurityLabels           `json:"securityLabels,omitempty"`
+	// +optional
+	Privileges []PostgresDatabaseSpecSchemaSecurityPrivileges `json:"privileges,omitempty"`
+	// +optional
+	SecurityLabels []PostgresDatabaseSpecSecurityLabels `json:"securityLabels,omitempty"`
 }
 
 type PostgresDatabaseSpecSchemaSecurityPrivileges struct {
 	Type            SchemaGrantType `json:"type"`
 	WithGrantOption bool            `json:"withGrantOption"`
-	Grantees        []string        `json:"grantees"`
+	// +listType=set
+	Grantees []string `json:"grantees"`
 }
 
 type PostgresDatabaseSpecSchemaDefaultPrivileges struct {
-	Tables    []PostgresDatabaseSpecTablesSecurityPrivileges    `json:"tables,omitempty"`
-	Sequences []PostgresDatabaseSpecSequenceSecurityPrivileges  `json:"sequences,omitempty"`
+	// +optional
+	Tables []PostgresDatabaseSpecTablesSecurityPrivileges `json:"tables,omitempty"`
+	// +optional
+	Sequences []PostgresDatabaseSpecSequenceSecurityPrivileges `json:"sequences,omitempty"`
+	// +optional
 	Functions []PostgresDatabaseSpecFunctionsSecurityPrivileges `json:"functions,omitempty"`
-	Types     []PostgresDatabaseSpecTypesSecurityPrivileges     `json:"types,omitempty"`
+	// +optional
+	Types []PostgresDatabaseSpecTypesSecurityPrivileges `json:"types,omitempty"`
 }
 
 type PostgresDatabaseSpecTablesSecurityPrivileges struct {
 	Type            TablesGrantType `json:"type"`
 	WithGrantOption bool            `json:"withGrantOption"`
-	Grantees        []string        `json:"grantees"`
+	// +listType=set
+	Grantees []string `json:"grantees"`
 }
 
 type PostgresDatabaseSpecSequenceSecurityPrivileges struct {
 	Type            SequenceGrantType `json:"type"`
 	WithGrantOption bool              `json:"withGrantOption"`
-	Grantees        []string          `json:"grantees"`
+	// +listType=set
+	Grantees []string `json:"grantees"`
 }
 
 type PostgresDatabaseSpecFunctionsSecurityPrivileges struct {
 	Type            FunctionsGrantType `json:"type"`
 	WithGrantOption bool               `json:"withGrantOption"`
-	Grantees        []string           `json:"grantees"`
+	// +listType=set
+	Grantees []string `json:"grantees"`
 }
 
 type PostgresDatabaseSpecTypesSecurityPrivileges struct {
 	Type            TypesGrantType `json:"type"`
 	WithGrantOption bool           `json:"withGrantOption"`
-	Grantees        []string       `json:"grantees"`
+	// +listType=set
+	Grantees []string `json:"grantees"`
 }
 
 // PostgresDatabaseStatus defines the observed state of PostgresDatabase

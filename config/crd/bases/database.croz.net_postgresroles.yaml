@@ -45,6 +45,7 @@ spec:
               items:
                 type: string
               type: array
+              x-kubernetes-list-type: set
             name:
               type: string
             parameters:

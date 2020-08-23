@@ -1,11 +1,12 @@
 apiVersion: database.croz.net/v1alpha1
 kind: PostgresRole
 metadata:
-  name: example
+  name: sample-full
 spec:
-  name: example
+  name: sample_full
+  password: "very-secured"
+  ## rest is optional configuration
   comment: "example comment"
-  password: "secured"
   expires: "9999-12-31 23:59:59 +00:00"
   connectionLimit: -1
   privileges:

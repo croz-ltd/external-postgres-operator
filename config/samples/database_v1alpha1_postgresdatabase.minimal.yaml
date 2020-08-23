@@ -1,0 +1,9 @@
+apiVersion: database.croz.net/v1alpha1
+kind: PostgresDatabase
+metadata:
+  name: sample-minimal
+spec:
+  name: sample_minimal
+  owner: example-user
+  definition:
+    connectionLimit: -1

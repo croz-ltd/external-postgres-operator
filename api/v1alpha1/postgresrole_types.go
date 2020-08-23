@@ -19,24 +19,38 @@ import (
 )
 
 type PostgresRoleSpec struct {
-	Name            string                      `json:"name"`
-	Comment         string                      `json:"comment,omitempty"`
-	Password        string                      `json:"password"`
-	Expires         string                      `json:"expires,omitempty"`
-	ConnectionLimit int                         `json:"connectionLimit,omitempty"`
-	Privileges      PostgresRoleSpecPrivileges  `json:"privileges,omitempty"`
-	Membership      []string                    `json:"membership,omitempty"`
-	Parameters      []PostgresRoleSpecParameter `json:"parameters,omitempty"`
-	Security        PostgresRoleSpecSecurity    `json:"security,omitempty"`
+	Name     string `json:"name"`
+	Password string `json:"password"`
+	// +optional
+	Comment string `json:"comment,omitempty"`
+	// +optional
+	Expires string `json:"expires,omitempty"`
+	// +optional
+	ConnectionLimit int `json:"connectionLimit,omitempty"`
+	// +optional
+	Privileges PostgresRoleSpecPrivileges `json:"privileges,omitempty"`
+	// +optional
+	// +listType=set
+	Membership []string `json:"membership,omitempty"`
+	// +optional
+	Parameters []PostgresRoleSpecParameter `json:"parameters,omitempty"`
+	// +optional
+	Security PostgresRoleSpecSecurity `json:"security,omitempty"`
 }
 
 type PostgresRoleSpecPrivileges struct {
-	Login           bool `json:"login,omitempty"`
-	SuperUser       bool `json:"superUser,omitempty"`
-	CreateRoles     bool `json:"createRoles,omitempty"`
+	// +optional
+	Login bool `json:"login,omitempty"`
+	// +optional
+	SuperUser bool `json:"superUser,omitempty"`
+	// +optional
+	CreateRoles bool `json:"createRoles,omitempty"`
+	// +optional
 	CreateDatabases bool `json:"createDatabases,omitempty"`
-	Inherit         bool `json:"inherit,omitempty"`
-	Replication     bool `json:"replication,omitempty"`
+	// +optional
+	Inherit bool `json:"inherit,omitempty"`
+	// +optional
+	Replication bool `json:"replication,omitempty"`
 }
 
 type PostgresRoleSpecParameter struct {
@@ -46,6 +60,7 @@ type PostgresRoleSpecParameter struct {
 }
 
 type PostgresRoleSpecSecurity struct {
+	// +optional
 	SecurityLabels []PostgresDatabaseSpecSecurityLabels `json:"securityLabels,omitempty"`
 }
 

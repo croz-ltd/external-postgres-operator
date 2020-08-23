@@ -17,6 +17,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	"errors"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
@@ -42,7 +43,9 @@ var _ webhook.Defaulter = &PostgresRole{}
 func (r *PostgresRole) Default() {
 	postgresrolelog.Info("default", "name", r.Name)
 
-	// TODO(user): fill in your defaulting logic.
+	//if r.Spec.ConnectionLimit == nil {
+	//	r.Spec.ConnectionLimit = -1
+	//}
 }
 
 // TODO(user): change verbs to "verbs=create;update;delete" if you want to enable deletion validation.
@@ -54,7 +57,9 @@ var _ webhook.Validator = &PostgresRole{}
 func (r *PostgresRole) ValidateCreate() error {
 	postgresrolelog.Info("validate create", "name", r.Name)
 
-	// TODO(user): fill in your validation logic upon object creation.
+	if !identifiersRegex.MatchString(r.Spec.Name) {
+		return errors.New("Requested role name does not compile by Postgres SQL indetifiers pattern. Required pattern: ^[a-zA-Z_][a-zA-Z0-9_]*$")
+	}
 	return nil
 }
 
