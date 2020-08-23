@@ -34,12 +34,69 @@ spec:
         metadata:
           type: object
         spec:
-          description: PostgresRoleSpec defines the desired state of PostgresRole
           properties:
-            foo:
-              description: Foo is an example field of PostgresRole. Edit PostgresRole_types.go
-                to remove/update
+            comment:
               type: string
+            connectionLimit:
+              type: integer
+            expires:
+              type: string
+            membership:
+              items:
+                type: string
+              type: array
+            name:
+              type: string
+            parameters:
+              items:
+                properties:
+                  database:
+                    type: string
+                  name:
+                    type: string
+                  value:
+                    type: string
+                required:
+                - database
+                - name
+                - value
+                type: object
+              type: array
+            password:
+              type: string
+            privileges:
+              properties:
+                createDatabases:
+                  type: boolean
+                createRoles:
+                  type: boolean
+                inherit:
+                  type: boolean
+                login:
+                  type: boolean
+                replication:
+                  type: boolean
+                superUser:
+                  type: boolean
+              type: object
+            security:
+              properties:
+                securityLabels:
+                  items:
+                    properties:
+                      label:
+                        type: string
+                      provider:
+                        type: string
+                    required:
+                    - label
+                    - provider
+                    type: object
+                  type: array
+              type: object
+          required:
+          - name
+          - password
           type: object
         status:
           description: PostgresRoleStatus defines the observed state of PostgresRole

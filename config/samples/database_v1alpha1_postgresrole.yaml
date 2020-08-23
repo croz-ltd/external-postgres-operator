@@ -1,7 +1,27 @@
 apiVersion: database.croz.net/v1alpha1
 kind: PostgresRole
 metadata:
-  name: postgresrole-sample
+  name: example
 spec:
-  # Add fields here
-  foo: bar
+  name: example
+  comment: "example comment"
+  password: "secured"
+  expires: "9999-12-31 23:59:59 +00:00"
+  connectionLimit: -1
+  privileges:
+    login: true
+    superUser: false
+    createRoles: false
+    createDatabases: false
+    inherit: true
+    replication: false
+  membership:
+    - another-role
+  parameters:
+    - name: "role"
+      value: "test-parameter-value"
+      database: "example"
+  security:
+    securityLabels:
+      - provider: "test-security-provider"
+        label: "test-security-label"

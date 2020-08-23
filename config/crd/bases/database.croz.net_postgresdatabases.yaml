@@ -34,12 +34,193 @@ spec:
         metadata:
           type: object
         spec:
-          description: PostgresDatabaseSpec defines the desired state of PostgresDatabase
           properties:
-            foo:
-              description: Foo is an example field of PostgresDatabase. Edit PostgresDatabase_types.go
-                to remove/update
+            comment:
               type: string
+            definition:
+              properties:
+                characterType:
+                  type: string
+                collation:
+                  type: string
+                connectionLimit:
+                  type: integer
+                encoding:
+                  type: string
+                tablespace:
+                  type: string
+                template:
+                  type: string
+              type: object
+            name:
+              type: string
+            owner:
+              type: string
+            parameters:
+              items:
+                properties:
+                  name:
+                    type: string
+                  role:
+                    type: string
+                  value:
+                    type: string
+                required:
+                - name
+                - role
+                - value
+                type: object
+              type: array
+            schemas:
+              items:
+                properties:
+                  comment:
+                    type: string
+                  defaultPrivileges:
+                    properties:
+                      functions:
+                        items:
+                          properties:
+                            grantees:
+                              items:
+                                type: string
+                              type: array
+                            type:
+                              type: string
+                            withGrantOption:
+                              type: boolean
+                          required:
+                          - grantees
+                          - type
+                          - withGrantOption
+                          type: object
+                        type: array
+                      sequences:
+                        items:
+                          properties:
+                            grantees:
+                              items:
+                                type: string
+                              type: array
+                            type:
+                              type: string
+                            withGrantOption:
+                              type: boolean
+                          required:
+                          - grantees
+                          - type
+                          - withGrantOption
+                          type: object
+                        type: array
+                      tables:
+                        items:
+                          properties:
+                            grantees:
+                              items:
+                                type: string
+                              type: array
+                            type:
+                              type: string
+                            withGrantOption:
+                              type: boolean
+                          required:
+                          - grantees
+                          - type
+                          - withGrantOption
+                          type: object
+                        type: array
+                      types:
+                        items:
+                          properties:
+                            grantees:
+                              items:
+                                type: string
+                              type: array
+                            type:
+                              type: string
+                            withGrantOption:
+                              type: boolean
+                          required:
+                          - grantees
+                          - type
+                          - withGrantOption
+                          type: object
+                        type: array
+                    type: object
+                  name:
+                    type: string
+                  owner:
+                    type: string
+                  security:
+                    properties:
+                      privileges:
+                        items:
+                          properties:
+                            grantees:
+                              items:
+                                type: string
+                              type: array
+                            type:
+                              type: string
+                            withGrantOption:
+                              type: boolean
+                          required:
+                          - grantees
+                          - type
+                          - withGrantOption
+                          type: object
+                        type: array
+                      securityLabels:
+                        items:
+                          properties:
+                            label:
+                              type: string
+                            provider:
+                              type: string
+                          required:
+                          - label
+                          - provider
+                          type: object
+                        type: array
+                    type: object
+                required:
+                - name
+                type: object
+              type: array
+            security:
+              properties:
+                privileges:
+                  items:
+                    properties:
+                      grantees:
+                        items:
+                          type: string
+                        type: array
+                      type:
+                        type: string
+                      withGrantOption:
+                        type: boolean
+                    required:
+                    - grantees
+                    - type
+                    - withGrantOption
+                    type: object
+                  type: array
+                securityLabels:
+                  items:
+                    properties:
+                      label:
+                        type: string
+                      provider:
+                        type: string
+                    required:
+                    - label
+                    - provider
+                    type: object
+                  type: array
+              type: object
+          required:
+          - name
           type: object
         status:
           description: PostgresDatabaseStatus defines the observed state of PostgresDatabase

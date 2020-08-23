@@ -83,13 +83,15 @@ func main() {
 		setupLog.Error(err, "unable to create controller", "controller", "PostgresRole")
 		os.Exit(1)
 	}
-	if err = (&databasev1alpha1.PostgresDatabase{}).SetupWebhookWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create webhook", "webhook", "PostgresDatabase")
-		os.Exit(1)
-	}
-	if err = (&databasev1alpha1.PostgresRole{}).SetupWebhookWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create webhook", "webhook", "PostgresRole")
-		os.Exit(1)
+	if os.Getenv("ENABLE_WEBHOOKS") != "false" {
+		if err = (&databasev1alpha1.PostgresDatabase{}).SetupWebhookWithManager(mgr); err != nil {
+			setupLog.Error(err, "unable to create webhook", "webhook", "PostgresDatabase")
+			os.Exit(1)
+		}
+		if err = (&databasev1alpha1.PostgresRole{}).SetupWebhookWithManager(mgr); err != nil {
+			setupLog.Error(err, "unable to create webhook", "webhook", "PostgresRole")
+			os.Exit(1)
+		}
 	}
 	// +kubebuilder:scaffold:builder
 

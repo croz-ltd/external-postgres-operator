@@ -1,6 +1,4 @@
 /*
-
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -20,16 +18,35 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
-// PostgresRoleSpec defines the desired state of PostgresRole
 type PostgresRoleSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	Name            string                      `json:"name"`
+	Comment         string                      `json:"comment,omitempty"`
+	Password        string                      `json:"password"`
+	Expires         string                      `json:"expires,omitempty"`
+	ConnectionLimit int                         `json:"connectionLimit,omitempty"`
+	Privileges      PostgresRoleSpecPrivileges  `json:"privileges,omitempty"`
+	Membership      []string                    `json:"membership,omitempty"`
+	Parameters      []PostgresRoleSpecParameter `json:"parameters,omitempty"`
+	Security        PostgresRoleSpecSecurity    `json:"security,omitempty"`
+}
 
-	// Foo is an example field of PostgresRole. Edit PostgresRole_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+type PostgresRoleSpecPrivileges struct {
+	Login           bool `json:"login,omitempty"`
+	SuperUser       bool `json:"superUser,omitempty"`
+	CreateRoles     bool `json:"createRoles,omitempty"`
+	CreateDatabases bool `json:"createDatabases,omitempty"`
+	Inherit         bool `json:"inherit,omitempty"`
+	Replication     bool `json:"replication,omitempty"`
+}
+
+type PostgresRoleSpecParameter struct {
+	Name     ParameterName `json:"name"`
+	Value    string        `json:"value"`
+	Database string        `json:"database"`
+}
+
+type PostgresRoleSpecSecurity struct {
+	SecurityLabels []PostgresDatabaseSpecSecurityLabels `json:"securityLabels,omitempty"`
 }
 
 // PostgresRoleStatus defines the observed state of PostgresRole

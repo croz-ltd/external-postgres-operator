@@ -5,6 +5,7 @@ kind: CustomResourceDefinition
 metadata:
   name: postgresdatabases.database.croz.net
 spec:
+  preserveUnknownFields: false
   conversion:
     strategy: Webhook
     webhookClientConfig:

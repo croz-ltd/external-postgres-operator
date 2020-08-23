@@ -1,7 +1,63 @@
 apiVersion: database.croz.net/v1alpha1
 kind: PostgresDatabase
 metadata:
-  name: postgresdatabase-sample
+  name: example
 spec:
-  # Add fields here
-  foo: bar
+  name: example2
+  ## rest is optional configuration
+  owner: example-owner
+  comment: "example comment"
+  definition:
+    encoding: "UTF-8"
+    connectionLimit: -1
+  security:
+    privileges:
+      - type: all
+        withGrantOption: false
+        grantees:
+          - another-role
+          - second-role
+    securityLabels:
+      - provider: "test-security-provider"
+        label: "test-security-label"
+  parameters:
+    - name: "role"
+      value: "test-parameter-value"
+      role: "test-owner"
+  schemas:
+    - name: "another-schem"
+      ## rest is optional configuration
+      owner: example-owner
+      comment: "example schema comment"
+      security:
+        privileges:
+          - type: all
+            withGrantOption: false
+            grantees:
+              - another-role
+              - second-role
+      defaultPrivileges:
+        tables:
+          - type: all
+            withGrantOption: false
+            grantees:
+              - another-role
+              - second-role
+        sequences:
+          - type: all
+            withGrantOption: false
+            grantees:
+              - another-role
+              - second-role
+        functions:
+          - type: execute
+            withGrantOption: false
+            grantees:
+              - another-role
+              - second-role
+        types:
+          - type: usage
+            withGrantOption: false
+            grantees:
+              - another-role
+              - second-role
